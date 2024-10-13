@@ -39,50 +39,47 @@ namespace Prac_3 {
             Console.WriteLine("\n");
         }
 
-
         public void Task3(int M, int N) {
-
-            int[] Width = new int[M];
-            int[] Length = new int[N];
-
-            int[,] Matrix = new int[Width.Length, Length.Length];
+            int[,] Matrix = new int[M, N];
 
             int Number = 1;
-            int Offset = 0;
+            int top = 0;
+            int bottom = M - 1;
+            int left = 0;
+            int right = N - 1;
 
-            while(Offset != N/2) {
+            while (top <= bottom && left <= right) {
+                for (int j = left; j <= right; j++) {
+                    Matrix[top, j] = Number++;
+                }
+                top++;
 
-                for(int j = 0+Offset; j < N-Offset; j++) {
-                    Matrix[0+Offset, j] = Number;
-                    ++Number;
+                for (int i = top; i <= bottom; i++) {
+                    Matrix[i, right] = Number++;
+                }
+                right--;
+
+                if (top <= bottom) {
+                    for (int j = right; j >= left; j--) {
+                        Matrix[bottom, j] = Number++;
+                    }
+                    bottom--;
                 }
 
-                for(int i = 1+Offset; i < M-Offset; i++) {
-                    Matrix[i, N-1-Offset] = Number;
-                    ++Number;
+                if (left <= right) {
+                    for (int i = bottom; i >= top; i--) {
+                        Matrix[i, left] = Number++;
+                    }
+                    left++;
                 }
-
-                for(int j = N-2-Offset; j >= 0+Offset; j--) {
-                    Matrix[M-1-Offset, j] = Number;
-                    ++Number;
-                }
-
-
-                for(int i = M-2-Offset; i > 0+Offset; i--) {
-                    Matrix[i, 0+Offset] = Number;
-                    ++Number;
-                }
-
-                ++Offset;
             }
-            
 
-            for(int i = 0; i < M; i++) {
-                for(int j = 0; j < N; j++)
+            for (int i = 0; i < M; i++) {
+                for (int j = 0; j < N; j++) {
                     Console.Write($"[{Matrix[i, j]}] ");
-                Console.WriteLine("");
+                }
+                Console.WriteLine("\n");
             }
-            Console.WriteLine("\n");
         }
 
     }
